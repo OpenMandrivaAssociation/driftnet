@@ -13,7 +13,6 @@ URL:            http://www.ex-parrot.com/~chris/driftnet/
 
 Source0:        %name-%version.tar.bz2
 #http://www.ex-parrot.com/~chris/driftnet/%name-%version.tar.gz
-BuildRoot:      %_tmppath/%name-buildroot
 
 BuildRequires:       libpcap-devel libjpeg-devel libungif-devel gtk-devel makedepend
 
