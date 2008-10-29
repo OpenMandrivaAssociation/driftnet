@@ -1,6 +1,6 @@
 %define name    driftnet
 %define version 0.1.6
-%define release %mkrel 7
+%define release %mkrel 8
 %define summary Network pictures sniffer
 
 Summary:        %summary
@@ -13,7 +13,7 @@ URL:            http://www.ex-parrot.com/~chris/driftnet/
 
 Source0:        %name-%version.tar.bz2
 #http://www.ex-parrot.com/~chris/driftnet/%name-%version.tar.gz
-BuildRoot:      %_tmppath/%name-buildroot
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 BuildRequires:       libpcap-devel libjpeg-devel libungif-devel gtk-devel makedepend
 
