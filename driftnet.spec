@@ -1,6 +1,6 @@
 %define name    driftnet
 %define version 0.1.6
-%define release %mkrel 8
+%define release %mkrel 9
 %define summary Network pictures sniffer
 
 Summary:        %summary
