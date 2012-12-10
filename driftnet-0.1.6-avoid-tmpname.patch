@@ -1,0 +1,23 @@
+diff -urp driftnet-0.1.6.old/driftnet.c driftnet-0.1.6/driftnet.c
+--- driftnet-0.1.6.old/driftnet.c	2002-07-09 20:26:41.000000000 +0100
++++ driftnet-0.1.6/driftnet.c	2005-12-13 16:52:04.000000000 +0000
+@@ -585,10 +587,15 @@ int main(int argc, char *argv[]) {
+     } else {
+         /* need to make a temporary directory. */
+         for (;;) {
+-            tmpdir = strdup(tmpnam(NULL));  /* may generate a warning, but this is safe because we create a directory not a file */
+-            if (mkdir(tmpdir, 0700) == 0)
+-                break;
+-            xfree(tmpdir);
++            const char *tmp;
++	    char *template;
++
++	    tmp = g_get_tmp_dir();
++	    template = g_build_filename(tmp, "drifnet-XXXXXX", NULL);
++	    tmpdir = mkdtemp (template);
++	    /* Paul: not sure why but this breaks tmpdir: g_free (template); */
++	    if (tmpdir)
++		break;
+         }
+     }
+ 

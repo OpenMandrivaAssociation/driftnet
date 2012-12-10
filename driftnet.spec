@@ -1,42 +1,51 @@
-%define name    driftnet
-%define version 0.1.6
-%define release %mkrel 9
-%define summary Network pictures sniffer
+%define		cvs	20040426cvs
 
-Summary:        %summary
-Name:           %name
-Version:        %version
-Release:        %release
-License:        GPL
-Group:          Networking/Other
-URL:            http://www.ex-parrot.com/~chris/driftnet/
-
-Source0:        %name-%version.tar.bz2
-#http://www.ex-parrot.com/~chris/driftnet/%name-%version.tar.gz
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-
-BuildRequires:       libpcap-devel libjpeg-devel libungif-devel gtk-devel makedepend
+Summary:	Network pictures sniffer
+Name:		driftnet
+Version:	0.1.6
+Release:	10.%{cvs}.1
+License:	GPL
+Group:		Networking/Other
+URL:		http://www.ex-parrot.com/~chris/driftnet/
+Source0:	%{name}-%{version}-%{cvs}.tar.gz
+Source1:	driftnet-0.1.6-pam.config
+Source2:	driftnet-0.1.6-security.config
+Patch0:		driftnet-0.1.6-libpng.patch
+Patch1:		driftnet-0.1.6-avoid-tmpname.patch
+Patch2:		driftnet-0.1.6-no-makedepend.patch
+Patch3:		driftnet-0.1.6-linkage.patch
+BuildRequires:	libpcap-devel
+BuildRequires:	jpeg-devel
+BuildRequires:	ungif-devel
+BuildRequires:	pkgconfig(gtk+-2.0)
 
 %description
-Inspired by EtherPEG, Driftnet is a program which listens to network traffic 
+Inspired by EtherPEG, Driftnet is a program which listens to network traffic
 and picks out images from TCP streams it observes.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}-%{cvs}
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
 %make
 
 %install
-rm -rf %buildroot
-mkdir -p %buildroot%_bindir
-cp driftnet %buildroot%_bindir
-
-%clean
-rm -rf %buildroot
+mkdir -p %{buildroot}%{_bindir}
+install -Dpm 0755 driftnet %{buildroot}%{_sbindir}/driftnet
+install -Dpm 0644 driftnet.1 %{buildroot}%{_mandir}/man1/driftnet.1
+ln -sf consolehelper %{buildroot}%{_bindir}/driftnet
+install -Dpm 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/pam.d/driftnet
+install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/security/console.apps/driftnet
 
 %files
-%defattr(-,root,root)
 %doc CHANGES COPYING CREDITS README TODO
-%defattr(0755,root,root)
-%_bindir/*
+%{_bindir}/driftnet
+%{_sbindir}/driftnet
+%config(noreplace) %{_sysconfdir}/pam.d/driftnet
+%config %{_sysconfdir}/security/console.apps/driftnet
+%{_mandir}/man1/driftnet.1*
+
