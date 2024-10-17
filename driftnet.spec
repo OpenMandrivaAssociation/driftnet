@@ -6,7 +6,7 @@ Version:	0.1.6
 Release:	10.%{cvs}.1
 License:	GPL
 Group:		Networking/Other
-URL:		http://www.ex-parrot.com/~chris/driftnet/
+URL:		https://www.ex-parrot.com/~chris/driftnet/
 Source0:	%{name}-%{version}-%{cvs}.tar.gz
 Source1:	driftnet-0.1.6-pam.config
 Source2:	driftnet-0.1.6-security.config
