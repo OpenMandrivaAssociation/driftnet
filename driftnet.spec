@@ -14,6 +14,7 @@ Patch0:		driftnet-0.1.6-libpng.patch
 Patch1:		driftnet-0.1.6-avoid-tmpname.patch
 Patch2:		driftnet-0.1.6-no-makedepend.patch
 Patch3:		driftnet-0.1.6-linkage.patch
+BuildRequires:	make
 BuildRequires:	libpcap-devel
 BuildRequires:	jpeg-devel
 BuildRequires:	ungif-devel
